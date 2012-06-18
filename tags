@@ -1,0 +1,22 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+ActivitiesController	app/controllers/activities_controller.rb	/^class ActivitiesController < ApplicationController$/;"	c
+Activity	app/models/activity.rb	/^class Activity < ActiveRecord::Base$/;"	c
+ApplicationController	app/controllers/application_controller.rb	/^class ApplicationController < ActionController::API$/;"	c
+Booking	app/models/booking.rb	/^class Booking < ActiveRecord::Base$/;"	c
+BookingsController	app/controllers/bookings_controller.rb	/^class BookingsController < ApplicationController$/;"	c
+Project	app/models/project.rb	/^class Project < ActiveRecord::Base$/;"	c
+ProjectsController	app/controllers/projects_controller.rb	/^class ProjectsController < ApplicationController$/;"	c
+User	app/models/user.rb	/^class User < ActiveRecord::Base$/;"	c
+activities_controller.rb	app/controllers/activities_controller.rb	1;"	F
+activity.rb	app/models/activity.rb	1;"	F
+application_controller.rb	app/controllers/application_controller.rb	1;"	F
+booking.rb	app/models/booking.rb	1;"	F
+bookings_controller.rb	app/controllers/bookings_controller.rb	1;"	F
+project.rb	app/models/project.rb	1;"	F
+projects_controller.rb	app/controllers/projects_controller.rb	1;"	F
+user.rb	app/models/user.rb	1;"	F
