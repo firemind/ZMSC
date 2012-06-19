@@ -1,0 +1,29 @@
+#summary_projects{data: {role: 'page', theme: 'a', :'add-back-btn' => 'true'}}
+  #header{'data-role' => "header", 'data-position' => "fixed"}
+    %h1
+      Summary
+  %div{'data-role' => "content"}
+    #chartdiv{style: "height:300px;width:400px;margin:auto;"}
+    %ul{data: {role: "listview", filter: 'true', 'filter-theme' => 'a'} }
+      - 1.times do
+        - ["Meier AG",  "Grauhof", "Industrie 37", "Seedamm"].each do |navtitle|
+          %li
+            %a{href: '#summary_activities'}
+              = navtitle
+:javascript
+  $("#summary_projects").bind('pageshow', function(){
+    $.jqplot('chartdiv',  [[["Meier AG", 6],["Grauhof",12],["Industrie 37",15],["Seedamm",33]]],{
+        seriesDefaults: {
+        // Make this a pie chart.
+        renderer: jQuery.jqplot.PieRenderer, 
+        rendererOptions: {
+          // Put data labels on the pie slices.
+          // By default, labels show the percentage of the slice.
+          showDataLabels: true
+        }
+      }, 
+      seriesColors: [ "#5897C8", "#313131", "#207ECE", "#222222", "#29ABE2", "#404040"],
+      grid:{ background: "transparent"} ,
+      legend: { show:true, location: 'e' }
+    });
+  });

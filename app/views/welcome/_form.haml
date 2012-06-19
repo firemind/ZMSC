@@ -1,0 +1,39 @@
+#form{data: {role: "page",theme: 'a', :'add-back-btn' => 'true'}}
+  #header2{data: {role: 'header', position: 'fixed'}}
+    %h1
+      Booking
+  %div{data: {role: "content"}}
+    %form{action: '/bla', method: "post"}
+      - ['project', 'activity' ].each do |c|
+        %div{data:{role:'fieldcontain'}}
+          %label.select{for:"select-#{c}"} 
+            #{c.capitalize}
+          %select{name:"select-#{c}", id: "select-#{c}"}
+            - (1..5).each do |num|
+              %option{value: 1} 
+                = "My#{c.capitalize} #{num}"
+      %div{data:{role:'fieldcontain'}}
+        %label{for:"comment"} 
+          Comment
+        %textarea{ name:"comment", id: "comment"}
+      %div{data:{role:'fieldcontain'}}
+        %label{for:"start_time"} 
+          From
+        %input{type:'time',name:"start_time", id: "start_time"}
+      %div{data:{role:'fieldcontain'}}
+        %label{for:"end_time"} 
+          To
+        %input{type:'time',name:"end_time", id: "end_time"}
+      %div{data:{role:'fieldcontain'}}
+        %label{for:"date"} 
+          Date
+        %input{type:'date',name:"date", id: "date"}
+  #footer{'data-role' => "footer", 'data-position' => "fixed"}
+    %div{data: {role: "navbar", iconpos: :left}}
+      %ul
+        %li
+          %a{:href => '#home', data: {role:"button", icon:"delete"} } Delete
+        %li
+          %a{:href => '#', data: {role:"button", icon:"check"} } Save
+        %li
+          %a{:href => '#home', data: {role:"button", icon:"start"} } Finish

@@ -1,0 +1,37 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+#header{
+  overflow: visible; /* Let menu content overflow outside the header */
+}
+#header ul { /* Menu Name */
+ list-style-type:none;
+}
+#header ul ul { /* Menu Item List */
+  position: absolute; /* Position absolutely */
+  display: none; /* Hide */
+  z-index:500; /* Ensure visibility over other elements on page */
+  margin-top: 0px; /* Bring menu closer to button; not needed on mobile */
+}
+#header ul ul li {
+  display: block; /* JQM makes a inline-blocks... reset it to block */
+}
+#header ul ul li a {
+  white-space: normal; /* Stop long menu names from truncating */
+}
+
+#menu-right {
+  float: right;
+  margin: 0;
+  position: absolute;
+  top: 6px;
+  right: 15px;
+  margin-right:0.5em; 
+}
+
+#menu-right ul {
+  margin-right: 0.5em;
+  right: 0em;
+}
+

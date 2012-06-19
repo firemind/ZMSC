@@ -1,0 +1,13 @@
+#termine{data: {role: "page",theme: 'a', :'add-back-btn' => 'true'}}
+  #header2{data: {role: 'header', position: 'fixed'}}
+    %h1
+      Cross Apps Kurs-Termine
+  %div{data: {role: "content"}}
+    %p
+      Donnerstags Abend von 18:00-21:20:
+  %ul{data: {role: "listview", insert: 'true'} }
+    - %w(1 2 3).each do |navtitle|
+      %li
+        %a{href: '#'}
+          Termin
+          = navtitle

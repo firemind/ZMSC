@@ -1,0 +1,25 @@
+#settings{data: {role: "page",theme: 'a', :'add-back-btn' => 'true'}}
+  %div{data: {role: 'header', position: 'fixed'}}
+    %h1
+      Settings
+  %div{data: {role: "content"}}
+    %form{action: '/bla', method: "post"}
+      %div{data:{role:'fieldcontain'}}
+        %label{for:"username"} 
+          Username
+        %input{type:'text',name:"username", id: "username"}
+      %div{data:{role:'fieldcontain'}}
+        %label{for:"password"} 
+          Password
+        %input{type:'password',name:"password", id: "password"}
+      %div{data:{role:'fieldcontain'}}
+        %label{for:"url"} 
+          URL
+        %input{type:'url',name:"url", id: "url"}
+  #footer{'data-role' => "footer", 'data-position' => "fixed"}
+    %div{data: {role: "navbar", iconpos: :left}}
+      %ul
+        %li
+          %a{:href => '#home', data: {role:"button", icon:"delete"} } Cancel
+        %li
+          %a{:href => '#home', data: {role:"button", icon:"check"} } Save
