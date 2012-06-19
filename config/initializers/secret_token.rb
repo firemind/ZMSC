@@ -4,4 +4,4 @@
 # If you change this key, all old signed cookies will become invalid!
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
-MobileZeiraCh::Application.config.secret_token = '94846040ce60e0ac82d2ffbef074d5b08f84a3303b85da048f6222f821c6e0290a2716137527ba3cd0dda41c46f3f6e18af515d6a75774ffaf826531c6d03a6b'
+MobileZeiraCh::Application.config.secret_token = 'a8f53147830022f15b760d008828de41e04e847785eb6f7d9afd3a80a2ecba0ac65785820c126d32465c4f1cf4b6c5b91d969a68071fa3eb72cdeb09846673e1'

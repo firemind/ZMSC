@@ -9,4 +9,8 @@ class User < ActiveRecord::Base
   def projects
     Project.all
   end
+
+  def url
+    "#{BASEURL}me"
+  end
 end

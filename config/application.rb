@@ -58,17 +58,8 @@ module MobileZeiraCh
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    config.middleware.use Rack::Cors do
-      allow do
-        origins '*', 'file://*'
-        resource '/*',
-          :headers => :any,
-          :methods => [:get, :post, :put, :delete]
-      end
-    end
-    config.middleware.use ActionDispatch::Cookies
-    config.middleware.use ActionDispatch::Session::CookieStore
     config.allow_forgery_protection = false
-
   end
 end
+
+BASEURL = "http://mobile.zeira.ch/"

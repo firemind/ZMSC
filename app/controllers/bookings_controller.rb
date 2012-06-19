@@ -1,7 +1,6 @@
 class BookingsController < ApplicationController
   def index
     @bookings = current_user.bookings
-    ::Rails.logger.debug "!!! @bookings:: #{@bookings.inspect}\n"
     
     render json: @bookings
   end

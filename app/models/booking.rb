@@ -6,11 +6,17 @@ class Booking < ActiveRecord::Base
   def as_json(options={})
     {
       id: self.id, 
+      url: self.url,
       date: self.date, 
       comment: self.comment, 
       start_time: self.start_time, 
-      project_id: self.project_id, 
-      activity_id: self.activity_id
+      end_time: self.end_time, 
+      project: self.project.as_json, 
+      activity: self.activity.as_json
     }
+  end
+
+  def url
+    "#{BASEURL}bookings/#{id}"
   end
 end
