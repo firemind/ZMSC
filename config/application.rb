@@ -60,12 +60,15 @@ module MobileZeiraCh
     config.assets.version = '1.0'
     config.middleware.use Rack::Cors do
       allow do
-        origins '*'
+        origins '*', 'file://*'
         resource '/*',
-          :headers => ['Origin', 'Accept', 'Content-Type'],
+          :headers => :any,
           :methods => [:get, :post, :put, :delete]
       end
     end
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore
+    config.allow_forgery_protection = false
 
   end
 end

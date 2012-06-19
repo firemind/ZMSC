@@ -1,20 +1,22 @@
 class ApplicationController < ActionController::API
-  before_filter :authenticate
-  include ActionController::HttpAuthentication::Basic
-  include ActionController::HttpAuthentication::Basic::ControllerMethods
-  include ActionController::HttpAuthentication::Digest::ControllerMethods
+  include ActionController::MimeResponds
+  include ActionController::Cookies
+  include ActionController::Helpers
+  before_filter :authenticate, :except => :login
 
 
   def current_user
-    user, pass = ActionController::HttpAuthentication::Basic::user_name_and_password(request)
-    User.where(username: user, password: pass).first
+    return User.find(session[:user_id]) if session[:user_id]
   end
+
+  def login
+    session[:user_id] = User.where(username: params[:username], password: params[:password]).first.id
+    authenticate 
+  end
+
   private
   def authenticate
-    authenticate_or_request_with_http_basic("Login Required") do |username|
-      u = User.where(username: username).first
-      u ? u.password : nil
-    end
+    head :unauthorized unless current_user
   end
 
 end
