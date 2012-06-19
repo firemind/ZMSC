@@ -5,6 +5,8 @@ MobileZeiraCh::Application.routes.draw do
 
   resources :bookings, except: :edit
 
+  resources :activities_projects, only: :index
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

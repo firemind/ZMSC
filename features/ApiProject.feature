@@ -16,5 +16,6 @@ Feature: Project API
     And the JSON response at "1/id" should be 2
 
   Scenario: Show action
+    When I log in as "John" using password "secret"
     When I visit "/projects/1"
     Then the JSON response at "name" should be "MyProject"

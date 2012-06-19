@@ -60,10 +60,10 @@ module MobileZeiraCh
     config.assets.version = '1.0'
     config.middleware.use Rack::Cors do
       allow do
-        origins 'localhost'
-        resource %r{/.*},
+        origins '*'
+        resource '/*',
           :headers => ['Origin', 'Accept', 'Content-Type'],
-          :methods => [:post, :put, :delete]
+          :methods => [:get, :post, :put, :delete]
       end
     end
 
