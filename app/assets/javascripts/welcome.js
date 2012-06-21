@@ -15,5 +15,8 @@ $(document).ready(function(){
   $('body').click(function(e){
     $('body').trigger('hideOpenMenus');
   });
-}
-);
+  _.templateSettings = {
+      interpolate : /\{\{(.+?)\}\}/g
+  };
+
+});

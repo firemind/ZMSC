@@ -1,0 +1,12 @@
+#menu{data: {role: "page",theme: 'a', :'add-back-btn' => 'true'}}
+  %div{data: {role: 'header', position: 'fixed'}}
+    %h1
+      Menu
+  %div{data: {role: "content"}}
+    %ul{data: {role:"listview", insert:"true"}}
+      %li{data: {icon: 'grid'}}
+        %a{href:"#summary_projects"}
+          Summary
+      %li{data:{icon:"refresh"}}
+        %a#reload{href:"#home" }
+          Reload

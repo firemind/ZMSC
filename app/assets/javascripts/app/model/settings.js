@@ -1,19 +1,30 @@
 Settings = Backbone.Model.extend({
-  save: function() {
+  write: function() {
+    localStorage.clear();
     JSONStorage.set("settings", this);
   },
-  
-  completeUrl: function() {
-  },
-  
+
   getUrl: function(path) {
     return "http://" + this.get("url") + "/" + path;
   },
 
   edit: function(username, password, url) {
+    console.debug("edit");
     this.set(fillData(username, password, url));
-    this.save();
-    $.post(this.getUrl("login"), {username: username, password: password});
+    this.write();
+    this.login();
+  },
+
+  login: function() {
+    $.ajax({
+      type: 'POST',
+      url: this.getUrl("login"),
+      data: {
+        username: this.get("username"),
+        password: this.get("password")
+      },
+      complete: reloadPage
+    });
   }
 });
 
@@ -27,11 +38,16 @@ function fillData(usr, pw, url) {
 
 function getData() {
   var data = JSONStorage.get("settings");
-  if(!data) {
-    data = fillData();
-    JSONStorage.set("settings", data);
-  }
-  return data;
+  return fillData(
+    data.username,
+    data.password,
+    data.url
+  );
+}
+
+function reloadPage() {
+  $("#booking-lists").empty();
+  Collections.getBookings();
 }
   
 settings = new Settings(getData());

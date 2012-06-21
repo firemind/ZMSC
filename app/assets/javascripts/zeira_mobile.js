@@ -1,0 +1,5 @@
+ZeiraMobile = {
+  config: {
+    position: null
+  }
+};

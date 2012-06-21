@@ -3,37 +3,38 @@
     %h1
       Booking
   %div{data: {role: "content"}}
+    #booking-form
+  #footer{'data-role' => "footer", 'data-position' => "fixed"}
+    %div{data: {role: "navbar", iconpos: :left}}
+      %ul
+        %li
+          %a#delete-booking-btn{:href => '#home', data: {role:"button", icon:"delete"} } Delete
+        %li
+          %a#save-booking-btn{:href => '#', data: {role:"button", icon:"check"} } Save
+        %li
+          %a{:href => '#home', data: {role:"button", icon:"start"} } Finish
+  
+  %script#booking-form-template{type: 'text/template'}
     %form{action: '/bla', method: "post"}
       - ['project', 'activity' ].each do |c|
         %div{data:{role:'fieldcontain'}}
           %label.select{for:"select-#{c}"} 
             #{c.capitalize}
-          %select{name:"select-#{c}", id: "select-#{c}"}
-            - (1..5).each do |num|
-              %option{value: 1} 
-                = "My#{c.capitalize} #{num}"
+          %select{name:"#{c}_id", id: "select-#{c}", :'data-selId' => "{{ m.get('#{c}_id') }}"}
       %div{data:{role:'fieldcontain'}}
         %label{for:"comment"} 
           Comment
         %textarea{ name:"comment", id: "comment"}
+          {{ m.get('comment') }}
       %div{data:{role:'fieldcontain'}}
         %label{for:"start_time"} 
           From
-        %input{type:'time',name:"start_time", id: "start_time"}
+        %input{value: "{{ m.getStartTime() }}", type:'time',name:"start_time", id: "start_time", data:{role:'datebox', options:'{"mode":"timeflipbox", "useFocus": true}'}}
       %div{data:{role:'fieldcontain'}}
         %label{for:"end_time"} 
           To
-        %input{type:'time',name:"end_time", id: "end_time"}
+        %input{value: "{{ m.getEndTime() }}", type:'time',name:"end_time", id: "end_time", data:{role:'datebox', options:'{"mode":"timeflipbox", "useFocus": true}'}}
       %div{data:{role:'fieldcontain'}}
         %label{for:"date"} 
           Date
-        %input{type:'date',name:"date", id: "date"}
-  #footer{'data-role' => "footer", 'data-position' => "fixed"}
-    %div{data: {role: "navbar", iconpos: :left}}
-      %ul
-        %li
-          %a{:href => '#home', data: {role:"button", icon:"delete"} } Delete
-        %li
-          %a{:href => '#', data: {role:"button", icon:"check"} } Save
-        %li
-          %a{:href => '#home', data: {role:"button", icon:"start"} } Finish
+        %input{value: "{{ m.getDate() }}",type:'date',name:"date", id: "date", data:{role:'datebox', options:'{"mode":"flipbox", "useFocus": true}'}}

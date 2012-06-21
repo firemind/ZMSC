@@ -4,7 +4,7 @@ class MeController < ApplicationController
     render json: {
         id:  u.id,
         url: u.url,
-        bookings: u.bookings.map { |b|
+        bookings: u.bookings.order("date DESC").map { |b|
           b.as_json
         }
       }

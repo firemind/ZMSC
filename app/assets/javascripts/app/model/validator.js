@@ -12,10 +12,30 @@ Validator = {
       }
     },
 
-    date: function(attr, name){
+    date: function(attr){
+      if(!attr.date) {
+        return "a date is needed";
+      } else if(!(attr.date instanceof Date)) {
+        return "the date must be a date";
+      }
     },
 
     start_time: function(attr){
+      if(!attr.start_time) {
+        return "a start time is needed";
+      } else if(!(attr.start_time instanceof Date)) {
+        return "the start time must be a date";
+      }
+    },
+
+    end_time: function(attr){
+      if(attr.end_time) {
+        if(!(attr.end_time instanceof Date)) {
+          return "the end time must be a date";
+        } else if(attr.end_time < attr.start_time) {
+          return "the end time can't be before the start time";
+        }
+      }
     },
 
     project_id: function(attr){

@@ -7,11 +7,11 @@
       %div{data:{role:'fieldcontain'}}
         %label{for:"from"} 
           From
-        %input{type:'date',name:"from", id: "from"}
+        %input{type:'date',name:"from", id: "from", data:{role:'datebox', options:'{"mode":"timeflipbox", "useFocus": true}'}}
       %div{data:{role:'fieldcontain'}}
         %label{for:"to"} 
           To
-        %input{type:'date',name:"to", id: "to"}
+        %input{type:'date',name:"to", id: "to", data:{role:'datebox', options:'{"mode":"timeflipbox", "useFocus": true}'}}
       - ['project', 'activity' ].each do |c|
         %div{data:{role:'fieldcontain'}}
           %label.select{for:"select-#{c}"} 

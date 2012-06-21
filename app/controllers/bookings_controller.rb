@@ -2,7 +2,7 @@ class BookingsController < ApplicationController
   def index
     @bookings = current_user.bookings
     
-    render json: @bookings
+    render json: @bookings.order("date DESC")
   end
 
   def show
@@ -10,9 +10,11 @@ class BookingsController < ApplicationController
   end
 
   def create
+    ::Rails.logger.debug "!!! params:: #{params.inspect}\n"
     
     @booking = current_user.bookings.build(params[:booking])
-
+    ::Rails.logger.debug "!!! @booking:: #{@booking.inspect}\n"
+    
     if @booking.save
       render json: @booking, status: :created, location: @booking
     else
@@ -25,7 +27,7 @@ class BookingsController < ApplicationController
     @booking = current_user.bookings.find(params[:id])
 
     if @booking.update_attributes(params[:booking])
-      head :no_content 
+      render json: @booking
     else
       render json: @booking.errors, status: :unprocessable_entity
     end

@@ -1,29 +1,10 @@
 #summary_activities{data: {role: 'page', theme: 'a', :'add-back-btn' => 'true'}}
   #header{'data-role' => "header", 'data-position' => "fixed"}
-    %h1
-      Summary Project
+    %h1#summary_activities_header
+      Summary
   %div{'data-role' => "content"}
-    #chartdiv2{style: "height:300px;width:400px;margin:auto;"}
-    %ul{data: {role: "listview", filter: 'true', 'filter-theme' => 'a'} }
-      - 1.times do
-        - ["Arbeiten",  "Polka tanzen", "Putzen", "Schlafen"].each do |navtitle|
-          %li
-            %a{href: '#form'}
-              = navtitle
-:javascript
-  $("#summary_activities").bind('pageshow', function(){
-    $.jqplot('chartdiv2',  [[["Arbeiten", 5],["Polka tanzen", 7],["Schlafen", 18],["Putzen", 2]]],{
-        seriesDefaults: {
-        // Make this a pie chart.
-        renderer: jQuery.jqplot.PieRenderer, 
-        rendererOptions: {
-          // Put data labels on the pie slices.
-          // By default, labels show the percentage of the slice.
-          showDataLabels: true
-        }
-      }, 
-      seriesColors: [ "#5897C8", "#313131", "#207ECE", "#222222", "#29ABE2", "#404040"],
-      grid:{ background: "transparent"} ,
-      legend: { show:true, location: 'e' }
-    });
-  });
+    #activity_chartdiv{style: "height:300px;width:400px;margin:auto;"}
+    %ul#summary_activities_list{data: {role: "listview", filter: 'true', 'filter-theme' => 'a'} }
+  %script#summary_activity_ele{type: 'text/template'}
+    %a
+      {{ m.get("name") }} - {{ m.getTimeSpentFormated() }} h

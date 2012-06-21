@@ -1,18 +1,30 @@
+// collection class
 Collection = Backbone.Collection.extend({
-  loadData: function() {
-    this.url = settings.getUrl(this.collectionName),
-    this.fetch({error: this.loadStorage, success: this.saveStorage});
-    this.loadStorage(this);
+  // add new data (just locally)
+  addData: function(data) {
+    if(data) { // if data loaded
+      // add to models
+      this.add(data);
+      // save to storage
+      this.saveStorage();
+    } else { // if no data loaded (offline)
+      // load data from storage
+      this.loadStorage();
+    }
+    // call event
+    this.trigger("dataload");
+  },
+ 
+  loadStorage: function() {
+    this.add(JSONStorage.get(this.collectionName));
+  },
+  
+  saveStorage: function() {
+    JSONStorage.set(this.collectionName, this);
   },
 
-  loadStorage: function(collection) {
-    data = JSONStorage.get(collection.collectionName);
-    collection.add(data);
-    collection.trigger("dataload");
-  },
-
-  saveStorage: function(collection) {
-    JSONStorage.set(collection.collectionName, collection);
-    collection.trigger("dataload");
+  // prepare own url
+  url: function() {
+    return settings.getUrl(this.collectionName);
   }
 });

@@ -1,12 +1,16 @@
+// ProjectActivity class
 ProjectActivity = Model.extend({
+  // define tests
   tests: ["project_id", "activity_id"],
 
-  getActivities: function() {
-    return activities.where({id: this.get("activity_id")});
+  // get the activity
+  getActivity: function() {
+    return Collections.activities.get(this.get("activity_id"));
   },
   
-  getProjects: function() {
-    return projects.where({id: this.get("project_id")});
+  // get the project
+  getProject: function() {
+    return Collections.projects.get(this.get("project_id"));
   }
 });
 
@@ -18,7 +22,7 @@ ProjectsActivities = Collection.extend({
     var toReturn = [];
     var all = this.where(conditions)
     for(var i in all) {
-      $.merge(toReturn, func(all[i]));
+      toReturn.push(func(all[i]));
     }
     return toReturn;
   },
@@ -31,6 +35,3 @@ ProjectsActivities = Collection.extend({
     return this.eachWhere({project_id: id}, func);
   }
 });
-
-projects_activities = new ProjectsActivities();
-projects_activities.loadData();

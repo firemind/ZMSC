@@ -3,37 +3,21 @@
     %a{:href => '#settings', data: {rel: 'dialog', role:"button", icon:"gear", iconpos:"notext"} } Settings
     %h1
       ZeiraMobile
-    %ul#menu-right{data: {role:"menu"}}
-      %li
-        %span{ data: {role:"button",icon:"arrow-d",iconpos:"right"}}
-          Actions
-        %ul{data: {role:"listview", insert:"true"}}
-          %li{data: {icon: 'false'}}
-            %a{href:"#summary_projects", data: {icon:"grid",role:"button"}}
-              Summary
-          %li{data: {icon: 'false'}}
-            %a{href:"#", data: {role:"button", icon:"refresh"}}
-              Reload
+    %a{:href => '#menu', data: {rel: 'dialog', role:"button", icon:"arrow-d"} } Menu
   %div{'data-role' => "content"}
-    %a{:href => '#filter', data: {rel:'dialog',role:"button", icon:"plus"} } Filter
-    %div{data: {role: "collapsible"} }
-      %h3
-        Dienstag 19.6.
-      %ul{data: {role: "listview", insert: 'true'} }
-        - ["08:10 - 09:50", "10:10 - 11:40"].each do |navtitle|
-          %li
-            %a{href: '#form'}
-              = navtitle
-    %div{data: {role: "collapsible"} }
-      %h3
-        Mittwoch 20.6.
-      %ul{data: {role: "listview", insert: 'true'} }
-        - ["08:10 - 09:50", "10:10 - 11:40"].each do |navtitle|
-          %li
-            %a{href: '#form'}
-              = navtitle
+    /%a{:href => '#filter', data: {rel:'dialog',role:"button", icon:"plus"} } Filter
+    #booking-lists
   #footer{'data-role' => "footer", 'data-position' => "fixed"}
     %div{data: {role: "navbar", iconpos: :top}}
       %ul
         %li
-          %a{:href => '#form', data: {role:"button", icon:"plus"} } Add
+          %a#add-booking-btn{:href => '#form', data: {role:"button", icon:"plus"} } Add
+  %script#booking-list-template{type: 'text/template'}
+    %h3
+      {{ weekday }}
+    %ul{data: {role: "listview", insert: 'true'} }
+  %script#booking-item-template{type: 'text/template'}
+    %a{href: '#form'} 
+      {{ m.getStartTime() }} - {{ m.getEndTime() }}
+      %span.ui-li-count
+        {{ m.getDuration() }}h

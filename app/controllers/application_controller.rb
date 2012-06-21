@@ -6,13 +6,13 @@ class ApplicationController < ActionController::Base
   end
 
   def login
-    session[:user_id] = User.where(username: params[:username], password: params[:password]).first.id
+    u = User.where(username: params[:username], password: params[:password]).first
+    session[:user_id] =  u ? u.id : nil
     authenticate or render layout: false
   end
 
   private
   def authenticate
-    ::Rails.logger.debug "!!! session:: #{session.inspect}\n"
     head :unauthorized unless current_user
   end
 
