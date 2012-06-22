@@ -45,4 +45,3 @@
 //= require app/controller/summary_projects
 //= require app/controller/summary_activities
 
-//= require tests/tests

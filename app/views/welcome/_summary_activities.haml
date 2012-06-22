@@ -4,7 +4,6 @@
       Summary
   %div{'data-role' => "content"}
     #activity_chartdiv{style: "height:300px;width:400px;margin:auto;"}
-    %ul#summary_activities_list{data: {role: "listview", filter: 'true', 'filter-theme' => 'a'} }
+    %ul#summary_activities_list{data: {role: "listview", filter: 'true', inset: "true", 'filter-theme' => 'a'} }
   %script#summary_activity_ele{type: 'text/template'}
-    %a
-      {{ m.get("name") }} - {{ m.getTimeSpentFormated() }} h
+    {{ m.get("name") }} - {{ timeSpent }} h

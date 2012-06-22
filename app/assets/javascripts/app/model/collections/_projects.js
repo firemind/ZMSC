@@ -18,6 +18,8 @@ Collections._projects = { // projects helper
     var activity;
     // project and activity entry to foreign key
     this.getFKArray();
+    $.merge(this.activities, this.project.activities);
+    delete this.project.activities;
   },
 
   // entry to foreign key
@@ -25,20 +27,23 @@ Collections._projects = { // projects helper
     // each activity
     for(i in this.project.activities) {
       // add to projects_activities
-      this.projects_activities.push({
-        project_id: this.project.id,
-        activity_id: this.project.activities[i].id
-      });
+      this.writeProjectsActivities(this.project.id, this.project.activities[i].id);
     }
-    $.merge(this.activities, this.project.activities);
-    delete this.project.activities;
+  },
+
+  // write projects_activities
+  writeProjectsActivities: function(p_id, a_id) {
+    this.projects_activities.push({
+      project_id: p_id,
+      activity_id: a_id
+    });
   },
 
   add: function() { // add to models
     Collections._helpers.addData({
-      projects: this.projects,
       projects_activities: this.projects_activities,
-      activities: this.activities
+      activities: this.activities,
+      projects: this.projects
     });
   }
 }

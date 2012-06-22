@@ -14,7 +14,7 @@ Collections._bookings = { // bookings helper
     for(i in bookings) { // each data
       this.booking = bookings[i];
       this.get(); // get data
-      this.convertDates(); // convert dates
+      this.booking = parseDates(this.booking); // convert dates
       this.bookings.push(this.booking); // collect booking
     }
   },
@@ -34,16 +34,18 @@ Collections._bookings = { // bookings helper
   }, 
 
   convertDates: function() { // convert dates
-    this.booking.date = new Date(this.booking.date);
+    this.booking.date = getDate(this.booking.date);
     this.booking.start_time= new Date(this.booking.start_time);
-    this.booking.end_time= new Date(this.booking.end_time);
+    if(this.booking.end_time != null) {
+      this.booking.end_time= new Date(this.booking.end_time);
+    }
   },
 
   add: function() { // add to models
     Collections._helpers.addData({
-      bookings: this.bookings,
       projects: this.projects,
-      activities: this.activities
+      activities: this.activities,
+      bookings: this.bookings
     });
   }
 }

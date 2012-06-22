@@ -3,6 +3,13 @@ function last(array) {return array[array.length-1];}
 
 // collection list
 Collections = {
+  clearAll: function() {
+    this.activities.clear();
+    this.projects.clear();
+    this.projects_activities.clear();
+    this.bookings.clear();
+  },
+
   urls: {
     bookings: "me",
     projects: "me/projects"

@@ -30,7 +30,7 @@ Feature: Booking API
   Scenario: Show action
     When I log in as "John" using password "secret"
     And I visit "/bookings/1"
-    Then the JSON response at "start_time" should be "2000-01-01T07:45:00Z"
+    Then the JSON response at "start_time" should be "07:45"
 
   Scenario: Create Action
     When I log in as "John" using password "secret"
@@ -42,7 +42,7 @@ Feature: Booking API
     When I log in as "John" using password "secret"
     And I send put "{'booking':{'date':'29.06.2012','start_time':'08:10','end_time':'17:15','comment':'10 minutes late','project_id':1,'activity_id':2}}" to "/bookings/2" 
     And I visit "/bookings/2"
-    Then the JSON response at "start_time" should be "2000-01-01T08:10:00Z"
+    Then the JSON response at "start_time" should be "09:10"
 
   Scenario: Delete Action
     When I log in as "John" using password "secret"

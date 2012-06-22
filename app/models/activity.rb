@@ -3,7 +3,9 @@ class Activity < ActiveRecord::Base
   validates_uniqueness_of :name
   has_and_belongs_to_many :projects
   def as_json(options={})
-    {:id => self.id, :name => self.name, url: self.url}
+    j = {:id => self.id, :name => self.name, url: self.url}
+    j.merge!(projects: self.projects.as_json) if options[:projects]
+    j
   end
 
   def url

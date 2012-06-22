@@ -113,7 +113,6 @@ $(document).ready(function(){
           }else{
             $.mobile.showPageLoadingMsg( $.mobile.pageLoadErrorMessageTheme, "deleted sucessfully", true );
             setTimeout( $.mobile.hidePageLoadingMsg, 1500 );
-            $.mobile.changePage("#home", "fade", true, false);
           }
       }
     });
@@ -141,7 +140,7 @@ $(document).ready(function(){
           if(formJSON.end_time != ""){
             $.mobile.changePage("#home", "fade", true, false);
           }else{
-            $('#form').jqmData('bookingId', Collections.bookings.get("id"));
+            $('#form').jqmData('bookingId', bookings.get("id"));
           }
         }
       }

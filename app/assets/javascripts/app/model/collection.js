@@ -1,10 +1,22 @@
 // collection class
 Collection = Backbone.Collection.extend({
+  clear: function() {
+    this.remove(this.models);
+  },
+
   // add new data (just locally)
-  addData: function(data) {
-    if(data) { // if data loaded
-      // add to models
-      this.add(data);
+  addData: function(datas) {
+    if(datas) { // if data loaded
+      if(!(datas instanceof Array)) { datas = [datas]; }
+      _.each(datas, function(data) {
+        // add to models
+        //console.json(data);
+        try{
+          this.add(data);
+        } catch(err){
+          console.error(err);//.get_message());
+        }
+      },this);
       // save to storage
       this.saveStorage();
     } else { // if no data loaded (offline)

@@ -1,9 +1,16 @@
+/*
+ * Validator object
+ * run all tests you want
+ */
 Validator = {
+  // all tests
   tests: {
+    // check id
     id: function(attr) {
       return checkID(attr, "id");
     },
 
+    // check name
     name: function(attr) {
       if(!attr.name) {
         return "name is needed";
@@ -12,6 +19,7 @@ Validator = {
       }
     },
 
+    // check date
     date: function(attr){
       if(!attr.date) {
         return "a date is needed";
@@ -20,6 +28,7 @@ Validator = {
       }
     },
 
+    // check start_time
     start_time: function(attr){
       if(!attr.start_time) {
         return "a start time is needed";
@@ -28,6 +37,7 @@ Validator = {
       }
     },
 
+    // check end_time
     end_time: function(attr){
       if(attr.end_time) {
         if(!(attr.end_time instanceof Date)) {
@@ -38,21 +48,26 @@ Validator = {
       }
     },
 
+    // check project_id
     project_id: function(attr){
       return checkID(attr, "project_id");
     },
 
+    // check activity_id
     activity_id: function(attr){
       return checkID(attr, "activity_id");
     }
   },
 
+  // run the tests <to_run>
   run: function(attr, to_run) {
+    // for each test
     for(i in to_run) {
       var test = this.tests[to_run[i]];
-      if(!test) {
+      if(!test) { // test does not exist
         console.error(to_run[i] + " is not defined in Validator");
       } else {
+        // validate the test
         var result = test(attr);
         if(result) { return result; }
       }

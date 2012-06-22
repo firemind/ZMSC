@@ -1,7 +1,12 @@
 // Model for bookings
 Booking = Model.extend({
   // needed tests
-  tests: ["date", "start_time", "project_id", "activity_id"],
+  tests: ["date", "start_time", "end_time", "project_id", "activity_id"],
+
+  validate: function(attr) {
+    console.debug("validate");
+    Model.prototype.validate(aparseDates(attr));
+  },
 
   defaults: {
     date: new Date(),
@@ -11,12 +16,12 @@ Booking = Model.extend({
 
   // get the activity object
   getActivity: function() {
-    Collectionsactivities.where({id: this.activity_id})[0];
+    return Collections.activities.get(this.get("activity_id"));
   },
   
   // get the project object
   getProject: function() {
-    Collections.projects.where({id: this.project_id})[0];
+    return Collections.projects.get(this.get("project_id"));
   },
 
   // get the duration, formatted as <format> or "H:MM"
@@ -52,27 +57,14 @@ Booking = Model.extend({
   getDateWeekday: function() {
     return this.getDate("dddd d.m");
   },
-  set: function(attributes, options) {
-    var aDate;
-    if (attributes.start_time){
-        aDate = new Date.parseExact(attributes.start_time, 'HH:mm');
-        if ( Object.prototype.toString.call(aDate) === "[object Date]" && !isNaN(aDate.getTime()) ){
-            attributes.start_time = aDate;
-        }
-    }
-    if (attributes.end_time){
-        aDate = new Date.parseExact(attributes.end_time, 'HH:mm');
-        if ( Object.prototype.toString.call(aDate) === "[object Date]" && !isNaN(aDate.getTime()) ){
-            attributes.end_time = aDate;
-        }
-    }
-    if (attributes.date){
-        aDate = new Date.parseExact(attributes.date, 'd.M.yyyy');
-        if ( Object.prototype.toString.call(aDate) === "[object Date]" && !isNaN(aDate.getTime()) ){
-            attributes.date = aDate;
-        }
-    }
-    return Backbone.Model.prototype.set.call(this, attributes, options);
+  
+  set: function(attrs, options) {
+    this.on("error", function(model, msg) {
+      console.error(msg);
+      $.mobile.showPageLoadingMsg( $.mobile.pageLoadErrorMessageTheme, msg, true );
+      setTimeout( $.mobile.hidePageLoadingMsg, 2000 );
+    });
+    return Backbone.Model.prototype.set.call(this, attrs, options);
   }
 });
 
@@ -90,22 +82,32 @@ Bookings = Collection.extend({
       project_id: r.project_id,
       activity_id: r.activity_id
     };
-    
+
     // set optional data
     if(r.end_time) { data.end_time = r.end_time; }
     if(r.comment) { data.comment = r.comment; }
 
-    this.upload(data);
+    var b = new Booking();
+    if(!b.set(data)) { return false; }
+
+    this.add(b);
+    
+    this.upload(b.toJSON());
     //return Backbone.Collection.prototype.create.call(this, data, options);
+    return b;
   },
   
   upload: function(data) {
     // to json
-    getLocation();
     if(ZeiraMobile.config.position != null){
-      data.position = ZeiraMobile.config.position;
+      data.pos_lat= ZeiraMobile.config.position.coords.latitude;
+      data.pos_lng= ZeiraMobile.config.position.coords.longitude;
+    }else{
+      console.debug("position is null");
+      console.dir(ZeiraMobile.config.position);
     }
-    // upoad to server
+    // upload to server
     $.post(this.url(), {booking: data});
+    this.trigger("dataload");
   }
 });

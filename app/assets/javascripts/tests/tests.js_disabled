@@ -1,0 +1,118 @@
+Collections.projects.on("dataload", function() {
+  if(Collections.projects_activities.models.length != 0) {
+    // check join
+    testActivities();
+    testProjects();
+    testBookings();
+
+    // JSONStorage
+    testJSONStorage();
+
+    // Dates
+    testDates();
+  }
+});
+
+function testActivities() {
+  testJoin("activities", [{
+    fields: "projects",
+    getFields: function(m) { return m.getProjects(); }
+  }]);
+}
+
+function testProjects() {
+  testJoin("projects", [{
+    fields: "activities",
+    getFields: function(m) { return m.getActivities(); }
+  }]);
+}
+
+function testBookings() {
+  testJoin("bookings", [
+    {
+      fields: "project",
+      getFields: function(m) { return m.getProject(); }
+    },
+    {
+      fields: "activity",
+      getFields: function(m) { return m.getActivity(); }
+    },
+  ]);
+}
+
+function testJSONStorage() {
+  var test = {asdf: "test1", blubb: "test2"};
+  JSONStorage.set("test", test);
+  var get = JSONStorage.get("test");
+  if(JSONHelper.compile(test) == JSONHelper.compile(get)) {
+    console.debug("JSONStorage is correct");
+  } else {
+    console.debug("JSONStorage is wrong");
+    console.debug(test);
+    console.debug(get);
+    console.debug(test == get);
+  }
+  localStorage.removeItem("test");
+}
+
+function testDates() {
+  var str = "01.01.2012"
+  var tDate = getDate(str);
+  var newStr = toDate(tDate);
+  if(newStr == str) {
+    console.debug("getDate() and toDate() are correct");
+  } else {
+    console.debug("getDate() and toDate() are wrong");
+    console.debug(str);
+    console.debug(tDate);
+    console.debug(newStr);
+  }
+
+  str = "13:37";
+  tDate = getTime(str);
+  newStr = toTime(tDate);
+  if(newStr == str) {
+    console.debug("getTime() and toTime() are correct");
+  } else {
+    console.debug("getTime() and toTime() are wrong");
+    console.debug(str);
+    console.debug(tDate);
+    console.debug(newStr);
+  }
+}
+
+function testJoin(model, datas) {
+  _.each(Collections[model].models, function(dataset) {
+    $.ajax({
+      url: settings.getUrl(model + "/" + dataset.get("id")),
+      success: function(_data, txt, jqXHR) {
+        var response = JSONHelper.decompile(jqXHR.responseText);
+        _.each(this.datas, function(data) {
+          var model_data = JSONHelper.compile(data.getFields(this.dataset));
+          checkJoin(model_data, response, data.fields, data.getFields, this.model, this.id);
+        },this);
+      },
+      datas: datas,
+      id: dataset.get("id"),
+      dataset: dataset,
+      model: model
+    }); 
+  });
+}
+
+function checkJoin(model_data, response, fields, getFields, model, id) {
+  var response_data = JSONHelper.compile(response[fields]);
+  if(model_data == response_data) {
+    console.debug(fields + " in " + model + " " + id + " is correct");
+  } else {
+    console.debug(fields + " in " + model + " " + id + " is wrong");
+    console.debug(model_data);
+    console.debug(response_data);
+  }
+}
+
+function getHeader(msg) {
+  var stars = "****";
+  _(msg.length).times(function() { stars += "*"; });
+  return stars + "\n* " + msg + " *\n" + stars;
+}

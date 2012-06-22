@@ -5,14 +5,14 @@
   %div{data: {role: "content"}}
     #booking-form
   #footer{'data-role' => "footer", 'data-position' => "fixed"}
-    %div{data: {role: "navbar", iconpos: :left}}
+    %div{data: {role: "navbar", iconpos: :top}}
       %ul
         %li
-          %a#delete-booking-btn{:href => '#home', data: {role:"button", icon:"delete"} } Delete
+          %a#delete-booking-btn{:href => '#', data: {role:"button", icon:"delete"} } Delete
         %li
           %a#save-booking-btn{:href => '#', data: {role:"button", icon:"check"} } Save
         %li
-          %a{:href => '#home', data: {role:"button", icon:"start"} } Finish
+          %a#finish-booking-btn{:href => '#home', data: {role:"button", icon:"start"} } Finish
   
   %script#booking-form-template{type: 'text/template'}
     %form{action: '/bla', method: "post"}
@@ -37,4 +37,4 @@
       %div{data:{role:'fieldcontain'}}
         %label{for:"date"} 
           Date
-        %input{value: "{{ m.getDate() }}",type:'date',name:"date", id: "date", data:{role:'datebox', options:'{"mode":"flipbox", "useFocus": true}'}}
+        %input{value: "{{ m.getDate() }}",type:'date',name:"date", id: "date", data:{role:'datebox', options:'{"overrideDateFormat":"%d.%m.%Y","mode":"flipbox", "useFocus": true}'}}

@@ -18,6 +18,6 @@
     %ul{data: {role: "listview", insert: 'true'} }
   %script#booking-item-template{type: 'text/template'}
     %a{href: '#form'} 
-      {{ m.getStartTime() }} - {{ m.getEndTime() }}
+      {{ m.getStartTime() }} - {{ m.getEndTime() }} / {{ m.getProject().get('name') }} / {{ m.getActivity().get('name') }}
       %span.ui-li-count
         {{ m.getDuration() }}h

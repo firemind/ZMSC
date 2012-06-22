@@ -4,7 +4,7 @@
       Summary
   %div#summary_projects_content{'data-role' => "content"}
     #project_chartdiv{style: "height:300px;width:400px;margin:auto;"}
-    %ul#summary_projects_list{data: {role: "listview", filter: 'true', 'filter-theme' => 'a'} }
+    %ul#summary_projects_list{data: {role: "listview", filter: 'true', inset: 'true', 'filter-theme' => 'a'} }
   %script#summary_project_ele{type: "text/template"}
     %a{href: '#summary_activities'}
       {{ m.get("name") }} - {{ m.getTimeSpentFormated() }} h

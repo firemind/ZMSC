@@ -19,7 +19,12 @@ Activity = Model.extend({
   
   getTimeSpent: function(project_id) {
     sum = 0;
-    $.each(this.getBookings(), function(i, booking) {
+    var bookings = Collections.bookings.where({
+      project_id: project_id,
+      activity_id: this.get("id")
+    });
+
+    _.each(bookings, function(booking) {
       sum += booking.getDurationMinutes();
     });
     return sum;
@@ -41,7 +46,7 @@ Activities = Collection.extend({
       return pa.getActivity();
     });
     _.each(activities, function(dataset) {
-      chartData.push([dataset.get("name"), dataset.getTimeSpent()]);
+      chartData.push([dataset.get("name"), dataset.getTimeSpent(project_id)]);
     });
     return chartData;
   }

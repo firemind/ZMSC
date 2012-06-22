@@ -1,5 +1,5 @@
 /** ********* LOCATION API *********** */
-function getLocation() {
+function getLocation(callback) {
   if (navigator.geolocation) {
     var options = {
       maximumAge : 30000
@@ -15,4 +15,11 @@ function getLocation() {
   } else {
     console.debug("GeoLocation not supported!");
   }
+  if (callback != undefined){
+    callback();
+  }
 }
+
+
+getLocation(function(){
+});

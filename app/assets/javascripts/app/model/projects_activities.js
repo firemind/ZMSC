@@ -14,10 +14,15 @@ ProjectActivity = Model.extend({
   }
 });
 
+// ProjectsActivities class (model: ProjectActivity)
 ProjectsActivities = Collection.extend({
   model: ProjectActivity,
   collectionName: "activities_projects",
 
+  /*
+   * call func for each ProjectActivity which matches <conditions>
+   * get array of the return values of func
+   */
   eachWhere: function(conditions, func) {
     var toReturn = [];
     var all = this.where(conditions)
@@ -27,11 +32,23 @@ ProjectsActivities = Collection.extend({
     return toReturn;
   },
 
+  // call eachWhere with activity_id = <id>
   eachActivity: function(id, func) {
     return this.eachWhere({activity_id: id}, func);
   },
 
+  // call eachWhere with project_id = <id>
   eachProject: function(id, func) {
     return this.eachWhere({project_id: id}, func);
+  },
+
+  oldAddData: Collection.prototype.addData,
+
+  addData: function(datas) {
+    _.each(datas, function(data) {
+      if(this.where(data).length == 0) {
+        this.oldAddData(data);
+      }
+    }, this);
   }
 });
