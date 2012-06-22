@@ -39,7 +39,6 @@ function MinutesToTime(minutes) {
 // format date (default "dd.mm.yyyy")
 function toDate(date, format) {
   if(!format) { format = "dd.mm.yyyy"; }
-  console.trace();
   return date.format(format); 
 }
 

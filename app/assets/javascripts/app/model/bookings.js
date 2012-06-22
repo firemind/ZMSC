@@ -3,10 +3,10 @@ Booking = Model.extend({
   // needed tests
   tests: ["date", "start_time", "end_time", "project_id", "activity_id"],
 
-  validate: function(attr) {
+  /*validate: function(attr) {
     console.debug("validate");
-    Model.prototype.validate(aparseDates(attr));
-  },
+    Model.prototype.validate(parseDates(attr));
+  },*/
 
   defaults: {
     date: new Date(),
@@ -64,7 +64,7 @@ Booking = Model.extend({
       $.mobile.showPageLoadingMsg( $.mobile.pageLoadErrorMessageTheme, msg, true );
       setTimeout( $.mobile.hidePageLoadingMsg, 2000 );
     });
-    return Backbone.Model.prototype.set.call(this, attrs, options);
+    return Backbone.Model.prototype.set.call(this, parseDates(attrs), options);
   }
 });
 
